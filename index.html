@@ -1,0 +1,2071 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Little World for You ♡</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600&family=Parisienne&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --night: #090e22;
+  --navy: #131a35;
+  --lavender: #c9b8ed;
+  --gold: #e6cc97;
+  --cream: #fff6e7;
+  --rose: #c58da5;
+  --muted: #c4c5d8;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 85px;
+}
+
+body {
+  margin: 0;
+  background: var(--night);
+  color: var(--cream);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+button, a { font: inherit; }
+button { -webkit-tap-highlight-color: transparent; }
+a { color: inherit; text-decoration: none; }
+
+.sky {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 15% 20%, #41406c45, transparent 40%),
+    radial-gradient(ellipse at 85% 65%, #60426930, transparent 42%),
+    linear-gradient(155deg, #101831, #090e22 65%, #171329);
+}
+
+#stars {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.moon {
+  position: absolute;
+  width: 95px;
+  height: 95px;
+  top: 12%;
+  right: 12%;
+  border-radius: 50%;
+  background: #fff1c9;
+  box-shadow: 0 0 35px #fff0c94d, 0 0 100px #b4a2ff1c;
+}
+
+.moon::after {
+  content: "";
+  position: absolute;
+  width: 85px;
+  height: 85px;
+  left: 25px;
+  top: -12px;
+  border-radius: 50%;
+  background: #11172e;
+}
+
+.cloud {
+  position: absolute;
+  width: 240px;
+  height: 65px;
+  border-radius: 50%;
+  background: #8c83bb12;
+  filter: blur(17px);
+}
+
+.cloud.one { left: -50px; top: 32%; }
+.cloud.two { right: -80px; top: 62%; width: 300px; }
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  padding: 15px 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: #090e22b8;
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid #ffffff0b;
+}
+
+.brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  color: var(--gold);
+}
+
+nav {
+  display: flex;
+  gap: 22px;
+  align-items: center;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+nav a:hover { color: var(--gold); }
+
+section {
+  padding: 100px 7%;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.hero {
+  min-height: 86vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+}
+
+.eyebrow {
+  color: var(--gold);
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+h1, h2, h3, p { margin-top: 0; }
+
+h1, h2, h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+}
+
+h1 {
+  font-size: clamp(53px, 9vw, 104px);
+  line-height: .98;
+  max-width: 780px;
+  margin-bottom: 25px;
+  letter-spacing: -2px;
+}
+
+h1 em, h2 em {
+  color: var(--lavender);
+  font-weight: 400;
+}
+
+.hero-description {
+  max-width: 470px;
+  color: var(--muted);
+  line-height: 1.9;
+  font-size: 15px;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+  max-width: 680px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 20px;
+  border-radius: 50px;
+  border: 1px solid #d8c39485;
+  color: var(--gold);
+  background: #ffffff05;
+  cursor: pointer;
+  transition: .25s ease;
+}
+
+.btn:hover {
+  background: #e6cc9715;
+  transform: translateY(-2px);
+}
+
+.btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn.primary {
+  color: #18172b;
+  background: var(--gold);
+  border-color: var(--gold);
+}
+
+.btn.dark-btn {
+  color: #463346;
+  border-color: #99647b66;
+  background: #99647b12;
+}
+
+.btn.dark-btn:hover {
+  background: #99647b24;
+}
+
+.hero-note {
+  position: absolute;
+  right: 5%;
+  bottom: 13%;
+  color: #d9c7e8;
+  font-family: 'Parisienne', cursive;
+  font-size: 29px;
+  transform: rotate(-7deg);
+}
+
+.section-top {
+  max-width: 680px;
+  margin-bottom: 38px;
+}
+
+.section-top h2 {
+  font-size: clamp(40px, 6vw, 64px);
+  margin-bottom: 15px;
+  line-height: 1.08;
+}
+
+.section-top p {
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.card {
+  padding: 30px;
+  min-width: 0;
+  border: 1px solid #c7b5e426;
+  border-radius: 22px;
+  background: linear-gradient(145deg, #ffffff0a, #ffffff03);
+  box-shadow: 0 15px 45px #0000000a;
+  transition: border-color .25s, transform .25s;
+}
+
+.card:hover {
+  border-color: #d9c39b85;
+  transform: translateY(-3px);
+}
+
+.card .symbol {
+  font-size: 26px;
+  margin-bottom: 18px;
+}
+
+.card h3 {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.card p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.card .btn { margin-top: 5px; }
+
+/* MASTER FOLDER FOR POLAROIDS */
+.master-folder {
+  text-align: center;
+  padding: 46px 30px;
+  border: 1px solid #e6cc9740;
+  border-radius: 26px;
+  background:
+    radial-gradient(ellipse at 50% 0%, #c9b8ed18, transparent 70%),
+    linear-gradient(145deg, #ffffff0c, #ffffff03);
+  cursor: pointer;
+  transition: .3s ease;
+}
+
+.master-folder:hover {
+  border-color: var(--gold);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 55px #00000045;
+}
+
+.master-folder .folder-icon {
+  font-size: 54px;
+  margin-bottom: 14px;
+  display: inline-block;
+  filter: drop-shadow(0 0 18px #e6cc9735);
+}
+
+.master-folder h3 {
+  font-size: 38px;
+  margin-bottom: 8px;
+  color: var(--cream);
+}
+
+.subfolders-wrapper {
+  margin-top: 28px;
+  display: none;
+  animation: fadeIn .5s ease both;
+}
+
+.subfolders-wrapper.open {
+  display: block;
+}
+
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #e6cc9745, transparent);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ENVELOPE EXPERIENCE */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  overflow-y: auto;
+  padding: 35px 16px;
+  background: #070b1af2;
+  backdrop-filter: blur(15px);
+}
+
+.overlay.active {
+  display: flex;
+  animation: fadeIn .4s ease both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.envelope-stage {
+  width: min(100%, 620px);
+  text-align: center;
+  margin: auto 0;
+  padding: 20px 0;
+}
+
+.envelope-hint {
+  color: var(--gold);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-size: 10px;
+  margin-bottom: 35px;
+}
+
+.envelope {
+  position: relative;
+  width: min(320px, 85vw);
+  height: 205px;
+  margin: 0 auto;
+  cursor: pointer;
+  isolation: isolate;
+  perspective: 900px;
+  filter: drop-shadow(0 20px 28px #0006);
+  animation: float 3s ease-in-out infinite;
+  outline: none;
+}
+
+.envelope:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 8px;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(-1deg); }
+}
+
+.env-back {
+  position: absolute;
+  inset: 0;
+  border-radius: 5px;
+  background: #b89a72;
+}
+
+.env-letter {
+  position: absolute;
+  z-index: 1;
+  left: 7%;
+  width: 86%;
+  top: 7%;
+  height: 86%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  color: #76576a;
+  background: #fff6e7;
+  font-family: 'Parisienne', cursive;
+  font-size: 24px;
+  transition: transform 1s .25s ease;
+}
+
+.env-front {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  border-radius: 4px;
+  background: #e7d3b2;
+  clip-path: polygon(0 0, 50% 56%, 100% 0, 100% 100%, 0 100%);
+}
+
+.env-flap {
+  position: absolute;
+  z-index: 4;
+  inset: 0;
+  background: #c9ad83;
+  clip-path: polygon(0 0, 100% 0, 50% 61%);
+  transform-origin: top center;
+  transition: transform .75s ease;
+  backface-visibility: hidden;
+}
+
+.env-seal {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  top: 49%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff0dc;
+  background: #9c5e76;
+  border: 2px solid #e2c38f;
+  box-shadow: 0 3px 12px #60405240;
+  font-size: 20px;
+  transition: opacity .25s;
+}
+
+.envelope.opening {
+  animation: rise .8s ease forwards;
+}
+
+@keyframes rise {
+  to { transform: translateY(-12px) scale(1.02); }
+}
+
+.envelope.opening .env-flap {
+  transform: rotateX(180deg);
+}
+
+.envelope.opening .env-seal {
+  opacity: 0;
+}
+
+.envelope.opening .env-letter {
+  transform: translateY(-115px);
+}
+
+.envelope.opening .env-front {
+  opacity: .4;
+  transition: opacity .5s .6s;
+}
+
+.envelope-instruction {
+  color: var(--muted);
+  font-size: 13px;
+  margin: 27px 0 15px;
+}
+
+.letter {
+  display: none;
+  text-align: left;
+  padding: clamp(24px, 6vw, 38px);
+  margin-top: 35px;
+  color: #4d3b48;
+  background:
+    radial-gradient(ellipse at top left, #fffdf4, transparent 70%),
+    #f4e8d1;
+  border: 1px solid #d9c39b;
+  border-radius: 14px;
+  box-shadow: 0 20px 70px #0005;
+}
+
+.letter.visible {
+  display: block;
+  animation: letterIn .8s ease both;
+}
+
+@keyframes letterIn {
+  from { opacity: 0; transform: translateY(30px) scale(.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.letter .eyebrow {
+  color: #99647b;
+  font-size: 10px;
+  letter-spacing: 2px;
+  line-height: 1.7;
+}
+
+.letter h2 {
+  font-size: clamp(32px, 7vw, 44px);
+  color: #463346;
+  margin-bottom: 20px;
+}
+
+.letter-content {
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+  color: #554653;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 21px;
+  line-height: 1.85;
+}
+
+.signature {
+  text-align: right;
+  margin-top: 30px;
+  color: #965c76;
+  font-family: 'Parisienne', cursive;
+  font-size: 28px;
+}
+
+.letter-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 25px;
+}
+
+/* POLAROID REVEAL CARD */
+.polaroid-box {
+  display: none;
+  margin: 35px auto 0;
+  max-width: 380px;
+  background: #fffcf7;
+  padding: 16px 16px 26px;
+  border-radius: 10px;
+  box-shadow: 0 24px 60px #0009;
+  border: 1px solid #e6d6bd;
+  cursor: pointer;
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.polaroid-box.visible {
+  display: block;
+  animation: letterIn .8s ease both;
+}
+
+.polaroid-box:hover {
+  transform: translateY(-4px) rotate(-1deg);
+  box-shadow: 0 28px 70px #000c;
+}
+
+.polaroid-box img {
+  width: 100%;
+  max-height: 410px;
+  object-fit: cover;
+  border-radius: 5px;
+  display: block;
+  background: #1b2038;
+}
+
+.polaroid-caption {
+  font-family: 'Parisienne', cursive;
+  font-size: 30px;
+  color: #463346;
+  margin-top: 16px;
+  text-align: center;
+}
+
+.polaroid-tap-hint {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #99647b;
+  margin-top: 6px;
+  text-align: center;
+}
+
+/* HANDWRITTEN LETTER IMAGE VIEWER */
+.handwritten-img-wrap {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.handwritten-img-wrap img {
+  width: 100%;
+  max-height: 72vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 8px 30px #00000025;
+  border: 1px solid #d9c39b;
+  background: #fffdf9;
+}
+
+.page-indicator {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px;
+  color: #6b5362;
+  padding: 0 10px;
+}
+
+.close-button {
+  margin-top: 25px;
+  background: transparent;
+  color: var(--muted);
+  border: 0;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.hidden { display: none !important; }
+
+/* OUR LITTLE HOME */
+
+.home-scene {
+  position: relative;
+  overflow: hidden;
+  padding: 38px 20px 32px;
+  text-align: center;
+  border: 1px solid #d1b9eb24;
+  border-radius: 25px;
+  background:
+    radial-gradient(ellipse at 50% 100%, #73629332, transparent 60%),
+    #11172b99;
+}
+
+.house {
+  display: inline-block;
+  margin: 15px auto 20px;
+  font-size: clamp(85px, 18vw, 145px);
+  filter: drop-shadow(0 0 22px #e4bd8c24);
+  animation: houseFloat 4s ease-in-out infinite;
+}
+
+@keyframes houseFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.home-scene h3 { font-size: 34px; }
+
+.home-scene > p {
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.room-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 24px 0;
+}
+
+/* FINAL SECTION */
+
+.final-message {
+  text-align: center;
+  padding-top: 70px;
+  padding-bottom: 110px;
+}
+
+.final-message h2 {
+  font-size: clamp(42px, 7vw, 76px);
+  line-height: 1.15;
+}
+
+.final-message p {
+  max-width: 530px;
+  margin: 0 auto;
+  color: var(--muted);
+  line-height: 1.9;
+}
+
+.finale-photo-frame {
+  max-width: 420px;
+  margin: 32px auto 10px;
+  padding: 16px 16px 26px;
+  background: #fffcf7;
+  border-radius: 12px;
+  box-shadow: 0 25px 65px #0008;
+  display: none;
+}
+
+.finale-photo-frame.visible {
+  display: block;
+  animation: letterIn .9s ease both;
+}
+
+.finale-photo-frame img {
+  width: 100%;
+  border-radius: 6px;
+  display: block;
+}
+
+.finale-photo-frame .caption {
+  font-family: 'Parisienne', cursive;
+  font-size: 29px;
+  color: #463346;
+  margin-top: 14px;
+}
+
+footer {
+  padding: 25px;
+  text-align: center;
+  border-top: 1px solid #ffffff0b;
+  color: #999ab6;
+  font-size: 12px;
+}
+
+@media (max-width: 820px) {
+  .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 650px) {
+  header { padding: 13px 5%; }
+  .brand { font-size: 19px; }
+  nav { gap: 12px; font-size: 11px; }
+  nav a:nth-child(4) { display: none; }
+  section { padding: 75px 6%; }
+  .hero { min-height: 77vh; }
+  .hero-note { position: static; margin-top: 45px; }
+  .grid, .grid-3 { grid-template-columns: 1fr; }
+  .card { padding: 25px; }
+  .moon { width: 65px; height: 65px; right: 9%; top: 13%; }
+  .moon::after { width: 59px; height: 59px; left: 18px; top: -8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="sky" aria-hidden="true">
+  <canvas id="stars"></canvas>
+  <div class="moon"></div>
+  <div class="cloud one"></div>
+  <div class="cloud two"></div>
+</div>
+
+<header>
+  <a class="brand" href="#top">a little world ♡</a>
+  <nav>
+    <a href="#letters">Letters</a>
+    <a href="#polaroids">Polaroids</a>
+    <a href="#secret-letters">Secret Notes</a>
+    <a href="#home">Our home</a>
+    <a href="#ending">Always</a>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="eyebrow">A tiny world, made for you</div>
+    <h1>Somewhere in this world,<br>there is <em>you.</em></h1>
+    <p class="hero-description">
+      And somewhere in my heart, there is this little place
+      where everything feels softer because you exist.
+      I made this little world for you. Take your time here.
+    </p>
+
+    <div class="actions">
+      <a class="btn primary" href="#letters">Discover your letters ♡</a>
+      <a class="btn" href="#polaroids">Polaroid memories ↗</a>
+      <a class="btn" href="#secret-letters">Kept safe here forever ↗</a>
+      <a class="btn" href="#home">Somewhere in our future ↗</a>
+    </div>
+
+    <div class="hero-note">for my favourite person ✧</div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CHAPTER I: 8 OPEN WHEN LETTERS -->
+  <section id="letters">
+    <div class="section-top">
+      <div class="eyebrow">Chapter I · Words I wanted you to have</div>
+      <h2>Little letters for <em>you.</em></h2>
+      <p>
+        For the days when you miss me, the days when everything feels
+        a little too much, and the ordinary days when I simply want
+        you to remember how deeply loved you are.
+      </p>
+    </div>
+
+    <div class="grid">
+      <article class="card"><div class="symbol">☾</div><h3>When you miss me</h3><p>A little note for the distance between us.</p><button class="btn" onclick="openNote(0)">Open letter ↗</button></article>
+      <article class="card"><div class="symbol">✧</div><h3>When today feels heavy</h3><p>A soft place to pause and breathe for a moment.</p><button class="btn" onclick="openNote(1)">Open letter ↗</button></article>
+      <article class="card"><div class="symbol">☁</div><h3>When you need a laugh</h3><p>Because our love can be silly too.</p><button class="btn" onclick="openNote(2)">Open letter ↗</button></article>
+      <article class="card"><div class="symbol">❀</div><h3>When you doubt yourself</h3><p>A reminder of who you are through my eyes.</p><button class="btn" onclick="openNote(3)">Open letter ↗</button></article>
+      <article class="card"><div class="symbol">⋆</div><h3>When you can't sleep</h3><p>A quiet late-night whisper to keep you company.</p><button class="btn" onclick="openNote(4)">Open letter ↗</button></article>
+      <article class="card"><div class="symbol">♡</div><h3>On a random ordinary day</h3><p>For absolutely no reason at all.</p><button class="btn" onclick="openNote(5)">Open letter ↗</button></article>
+      <article class="card"><div class="symbol">🫂</div><h3>When we had a disagreement</h3><p>Because we're on the same team, even when we don't see eye to eye.</p><button class="btn" onclick="openNote(6)">Open letter ↗</button></article>
+      <article class="card"><div class="symbol">🌿</div><h3>When you're exhausted, even from me</h3><p>Permission to rest, breathe, and take all the space you need.</p><button class="btn" onclick="openNote(7)">Open letter ↗</button></article>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CHAPTER II: POLAROID MEMORIES -->
+  <section id="polaroids">
+    <div class="section-top">
+      <div class="eyebrow">Chapter II · Frozen in time</div>
+      <h2>Polaroid <em>memories.</em></h2>
+      <p>
+        Six little frames of us, and the words I wrote for every single one of them.
+        Open the folder, unseal the envelope, and tap the photo to read the letter waiting behind it.
+      </p>
+    </div>
+
+    <div class="master-folder" id="master-polaroid-folder" onclick="togglePolaroidFolders()">
+      <div class="folder-icon">📁</div>
+      <h3>Polaroid Memories</h3>
+      <p style="color: var(--muted); max-width: 440px; margin: 0 auto 18px;">6 folders inside · Each holding an envelope, a photo of us, and its own letter.</p>
+      <span class="btn" id="polaroid-folder-btn">Open Polaroid Memories ↗</span>
+    </div>
+
+    <div class="subfolders-wrapper" id="polaroid-subfolders">
+      <div class="grid-3">
+        <article class="card"><div class="symbol">📂</div><h3>The little Mumbai trip</h3><p>Memory I</p><button class="btn" onclick="openPolaroidMemory(0)">Open folder ↗</button></article>
+        <article class="card"><div class="symbol">📂</div><h3>The view behind me</h3><p>Memory II</p><button class="btn" onclick="openPolaroidMemory(1)">Open folder ↗</button></article>
+        <article class="card"><div class="symbol">📂</div><h3>A little scary, a lot special</h3><p>Memory III</p><button class="btn" onclick="openPolaroidMemory(2)">Open folder ↗</button></article>
+        <article class="card"><div class="symbol">📂</div><h3>A birthday smile</h3><p>Memory IV</p><button class="btn" onclick="openPolaroidMemory(3)">Open folder ↗</button></article>
+        <article class="card"><div class="symbol">📂</div><h3>The accidental picture</h3><p>Memory V</p><button class="btn" onclick="openPolaroidMemory(4)">Open folder ↗</button></article>
+        <article class="card"><div class="symbol">📂</div><h3>The happiest frame</h3><p>Memory VI</p><button class="btn" onclick="openPolaroidMemory(5)">Open folder ↗</button></article>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CHAPTER III: SECRET LETTERS -->
+  <section id="secret-letters">
+    <div class="section-top">
+      <div class="eyebrow">Chapter III · Kept safe here forever</div>
+      <h2>The letters you couldn't keep to yourself <em>(even when you wanted to).</em></h2>
+      <p>Every handwritten page, kept safe in our little world so you can open and read them whenever your heart wants to.</p>
+    </div>
+
+    <div class="grid-3">
+      <article class="card"><div class="symbol">✉</div><h3>Random letter 1</h3><p>2 pages</p><button class="btn" onclick="openSecretLetter(0)">Open letter ↗</button></article>
+      <article class="card"><div class="symbol">✉</div><h3>Random letter 2</h3><p>2 pages</p><button class="btn" onclick="openSecretLetter(1)">Open letter ↗</button></article>
+      <article class="card"><div class="symbol">✉</div><h3>Random letter 3</h3><p>2 pages</p><button class="btn" onclick="openSecretLetter(2)">Open letter ↗</button></article>
+      <article class="card"><div class="symbol">✧</div><h3>Bappa's blessings</h3><p>1 page</p><button class="btn" onclick="openSecretLetter(3)">Open letter ↗</button></article>
+      <article class="card"><div class="symbol">♡</div><h3>Bracelet note</h3><p>1 page</p><button class="btn" onclick="openSecretLetter(4)">Open letter ↗</button></article>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CHAPTER IV: OUR LITTLE HOME (NOW OPENS IN ENVELOPES) -->
+  <section id="home">
+    <div class="section-top">
+      <div class="eyebrow">Chapter IV · Somewhere in our future</div>
+      <h2>A home we haven't <em>reached yet.</em></h2>
+      <p>Not a perfect life. Just the ordinary little moments I'd love to share with you.</p>
+    </div>
+
+    <div class="grid">
+      <article class="card">
+        <div class="symbol">♨</div>
+        <h3>The kitchen</h3>
+        <p>Cooking, stealing bites, and laughing together.</p>
+        <button class="btn" onclick="openRoomNote(0)">Open letter ↗</button>
+      </article>
+
+      <article class="card">
+        <div class="symbol">☾</div>
+        <h3>The window</h3>
+        <p>Watching the rain fall with two warm cups.</p>
+        <button class="btn" onclick="openRoomNote(1)">Open letter ↗</button>
+      </article>
+
+      <article class="card">
+        <div class="symbol">♡</div>
+        <h3>The bookshelf</h3>
+        <p>Book recommendations, stories, and little notes.</p>
+        <button class="btn" onclick="openRoomNote(2)">Open letter ↗</button>
+      </article>
+
+      <article class="card">
+        <div class="symbol">✧</div>
+        <h3>The living room</h3>
+        <p>Lazy evenings, blankets, and movie debates.</p>
+        <button class="btn" onclick="openRoomNote(3)">Open letter ↗</button>
+      </article>
+    </div>
+  </section>
+
+  <!-- GRAND FINALE -->
+  <section id="ending" class="final-message">
+    <div class="eyebrow">And one last little thing</div>
+    <h2>In every version of tomorrow,<br><em>there is you.</em></h2>
+    <p>
+      This is just a little website, made of words, stars and tiny
+      pieces of my imagination. But the thought behind it is real.
+      Thank you for being someone I get to love.
+    </p>
+
+    <!-- Final Frame Button -->
+    <div class="actions" style="justify-content:center; margin-top: 24px;">
+      <button class="btn primary" onclick="revealFinalePhoto()">Our final frame ♡</button>
+    </div>
+
+    <!-- Final Frame Photo -->
+    <div class="finale-photo-frame" id="finale-frame">
+      <img id="finale-img" alt="Us together">
+      <div class="caption">Forever your Sujal ♡</div>
+    </div>
+
+    <div class="actions" style="justify-content:center; margin-top: 28px;">
+      <a class="btn" href="#top">Back to our world ↑</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Made with a little too much love ♡
+</footer>
+
+<!-- UNIVERSAL ENVELOPE + CONTENT OVERLAY -->
+<div class="overlay" id="envelope-overlay"
+     role="dialog" aria-modal="true" aria-label="A personal memory"
+     onclick="if(event.target===this)closeEnvelope()">
+
+  <div class="envelope-stage">
+    <div class="envelope-hint" id="envelope-hint">A little letter, just for you</div>
+
+    <div class="envelope" id="envelope" role="button" tabindex="0" onclick="openEnvelope()">
+      <div class="env-back"></div>
+      <div class="env-letter" id="env-inner-label">For my favourite person ♡</div>
+      <div class="env-flap"></div>
+      <div class="env-front"></div>
+      <div class="env-seal">♥</div>
+    </div>
+
+    <p class="envelope-instruction" id="envelope-instruction">Click the envelope to open it ♡</p>
+
+    <div class="polaroid-box" id="polaroid-box" onclick="revealPolaroidLetter()">
+      <img id="polaroid-img" alt="Polaroid memory">
+      <div class="polaroid-caption" id="polaroid-caption"></div>
+      <div class="polaroid-tap-hint" id="polaroid-tap-hint">Click the photo to read its letter ♡</div>
+    </div>
+
+    <article class="letter" id="letter-paper">
+      <div class="eyebrow" id="letter-eyebrow">A little note from me to you</div>
+      <h2 id="letter-title">For you, always.</h2>
+
+      <div class="letter-content" id="letter-content"></div>
+
+      <div class="handwritten-img-wrap hidden" id="letter-image-wrap">
+        <img id="letter-image" alt="Handwritten letter page">
+      </div>
+
+      <div class="letter-controls hidden" id="pagination-controls">
+        <button class="btn dark-btn" id="prev-page-btn" onclick="changeSecretPage(-1)">← Previous page</button>
+        <span class="page-indicator" id="page-indicator">Page 1 of 2</span>
+        <button class="btn dark-btn" id="next-page-btn" onclick="changeSecretPage(1)">Next page →</button>
+      </div>
+
+      <div class="signature">Yours, always — Sujal ♡</div>
+
+      <div class="letter-controls">
+        <button class="btn dark-btn" onclick="closeEnvelope()">Fold the letter ✧</button>
+      </div>
+    </article>
+
+    <button class="close-button" id="envelope-close" onclick="closeEnvelope()">Maybe later ×</button>
+  </div>
+</div>
+
+<script>
+/* =====================================================================
+   SMART IMAGE LOADER
+   ===================================================================== */
+function loadSmartImage(imgElement, baseName) {
+  const clean = baseName.replace(/\.(jpg|jpeg)$/i, "");
+  const namesToTry = (clean === "final-us") ? ["final-us", "us", "final", "us-1"] : [clean];
+  const folders = ["assets/images/", "images/", "assets/", ""];
+  const exts = [".jpg", ".jpeg", ".jpg.jpeg", ".png", ".webp"];
+
+  const candidates = [];
+  for (const name of namesToTry) {
+    for (const folder of folders) {
+      for (const ext of exts) {
+        candidates.push(`${folder}${name}${ext}`);
+      }
+    }
+  }
+
+  let idx = 0;
+  imgElement.onerror = function () {
+    idx++;
+    if (idx < candidates.length) {
+      imgElement.src = candidates[idx];
+    }
+  };
+  imgElement.src = candidates[0];
+}
+
+function revealFinalePhoto() {
+  const frame = document.getElementById("finale-frame");
+  const img = document.getElementById("finale-img");
+  loadSmartImage(img, "final-us");
+  frame.classList.add("visible");
+  setTimeout(() => {
+    frame.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, 150);
+}
+
+/* =====================================================================
+   1. ALL 8 VERBATIM "OPEN WHEN" LETTERS FROM SUJAL
+   ===================================================================== */
+const notes = [
+`Mera bachcha, if you're reading this, it means you're missing me a little extra today!! 🥹🫂
+
+God, I wish I could be there with you right now!! I wish I could just pull you into the warmest hug, let you rest your head on my chest, play with your hair, kiss your forehead and remind you that you're loved more than you could ever imagine!! ❤️‍🩹
+
+I know distance isn't always easy, baby!! There are days when all we want is to be next to each other, when a call isn't enough and texts can't replace a hug!! And I wish I could make those days easier for you!!
+
+But meri jaan, even when I'm not physically beside you, there's so much of me that belongs in your little world!! In the way I think about you during random moments, in the little things that remind me of you, in all the things I wish I could tell you while holding your hand!!
+
+You don't have to do anything special to be loved by me!! You don't have to be happy all the time, you don't have to find the right words, and you don't have to hide how much you're missing me!! You can be soft with me, you can be vulnerable with me, you can tell me that you wish I was there!! I'll never think you're asking for too much just because you want a little more of me!!
+
+And hey, my love, we're not going to be this far apart forever!! Someday, these little screens won't be the only way we get to see each other!! Someday, I'll get to see your face without saying goodbye at the end of a call, and I'll get to hug you without counting the minutes before we have to leave!! Until then, we'll keep choosing each other, one day at a time!! 🥹❤️
+
+So for now, take a deep breath, hug your pillow a little tighter and imagine me telling you this right beside you…
+
+I'm here, baby!! I'm yours, and you're so deeply loved!! Distance can keep my hands away from yours for now, but it can't make what you mean to me any less real!!
+
+I love you, my Shreya!! On the days we're laughing together and on the days we miss each other a little too much!! On ordinary days and on the difficult ones!! I love you in all the little moments that make up our story!!
+
+And when you miss me again, come back and read this, okayyy? Consider this your little piece of me until I can give you the real hug you deserve!! 🫂💗
+
+Forever your Sujal, your biggest admirer and the boy who's always rooting for you!! ♡`,
+
+`Heyyy mera bachcha, my baby, majha boondi cha Ladoo 🫶🏼🩷
+
+First of all, come here!! Sending you the biggest, warmest, tightest hug everrrrr 🥹💗 The kind of hug where you don't have to say anything, explain anything, or pretend that you're okay!! You can just exist for a little while, and that's enough!!
+
+I don't know what kind of day you're having right now!! Maybe things aren't going the way you wanted them to, maybe your mind feels a little too loud, maybe you're tired of being strong, or maybe you don't even know why everything feels so heavy today!! And that's okay, meri jaan!! You don't always need to have a reason for feeling the way you do!!
+
+Listen to me for a second, baby!!
+
+You don't have to have everything figured out today!! You don't have to fix every problem, make everyone happy, keep smiling when you don't feel like it, or pretend that nothing bothers you!! You're allowed to have days when all you can do is take things slowly!! You're allowed to rest without feeling guilty about it!! You're allowed to be a little lost sometimes!!
+
+And please, my love, don't be so hard on yourself!! I wish you could see yourself through my eyes, even for a minute!! Maybe then you'd understand why I never need you to be perfect to be precious to me!! You don't have to accomplish something extraordinary every day to deserve love, care, patience and happiness!!
+
+If today has been unkind to you, I hope you remember that one difficult day doesn't define your entire life!! You can have a bad day without having a bad life!! You can feel overwhelmed without being weak!! And you can take a break without falling behind!!
+
+And baby, if I could be there right now, I wouldn't ask you to explain everything immediately!! I'd just sit beside you, hold your hand, listen if you wanted to talk, and let you have your quiet moments if you didn't!! I'd remind you to drink some water, eat something if you haven't, and give yourself a little breathing room!! Not because those little things magically fix everything, but because you deserve to be taken care of, too!! 🥹🫶🏻
+
+You spend so much time being you, living your life, dealing with your thoughts and carrying things that other people might not even notice!! So please remember that you don't always have to carry everything alone, okayyy? You can let the people who love you be there for you!!
+
+And even though I can't magically appear beside you whenever life gets difficult, I hope my love can be a little reminder that somewhere in this world, there's a boy who believes in you even on the days when you struggle to believe in yourself!! A boy who wants to see you happy, but who also wants you to know that you don't have to be happy every second to be loved!!
+
+I love you on your brightest days, but I also love you on the days when you barely have the energy to get through the little things!! You never have to earn that love by being cheerful, productive or okay all the time!!
+
+So, my shreyaaa, take today one little moment at a time!! Don't worry about tomorrow just yet!! Give yourself permission to breathe, to rest, to feel whatever you're feeling, and to begin again when you're ready!!
+
+And if nobody has told you this today, let me be the one to tell you…
+
+I'm proud of you, baby!! Not just for the things you achieve, but for the person you're becoming, for the kindness you carry, and for all the little ways you keep going even when things aren't easy!! 🤍
+
+I wish I could kiss your forehead right now and whisper, "It's okay, meri jaan!! You don't have to figure everything out right now!! We'll take things one day at a time!!"
+
+Until I can do that in person, let these words be your little reminder to be gentle with yourself!!
+
+The world can wait a little, my love!! Take care of your heart today!! 🫂🌷
+
+I love you so so so much, Shreya!! More than these words could ever properly explain!!
+
+And remember, okayyy?
+
+You are not a burden for having difficult days!! You are not any less wonderful when you're tired!! And you never have to pretend to be okay just to be loved!!
+
+Your Sujal is always rooting for you, my girl!! One day at a time, one little step at a time, we'll be okay!! ♡`,
+
+`SHREEEYYYYAAAAAA MY BABYYYYY 😭😭😭💗💗
+
+BOHOOOOOOO 👻🫣
+
+HAHAHAHAHAHAHAHAHA DID I SCARE YOUUUU??? 😭😂😂🫶🏼
+
+I HOPE IT MADE YOU LAUGH 😭😂🫶🏼
+
+OKAY OKAY I'll STOP NOWWW 😭😭😭 BUT BABYYYY YOUR BOYFRIEND IS A LITTLE SILLY AND YOU'RE STUCK WITH HIMMMMM 🤡💗
+
+If you're reading this because you're having a bad day or you just need a little reason to smile, then congratulations, my love!! You've officially unlocked your personal clown's special edition!! 😭🤡🫶🏼 No refunds, no exchanges, lifetime subscription only!!
+
+You know what I wish I could do right now?? Make the most ridiculous faces until you start laughing, even when you try your absolute hardest not to!! And then the moment you finally laugh, I'd be like, "SEE??? THAT'S WHAT I WAS TRYING TO DOOOOO!!" 😭😭😭💗
+
+And if you're still not laughing, BABY, I'M ABOUT TO GET WORSEEEE!!
+
+BOOOOOOOOOOOO 👻
+
+dramatic silence
+
+WHY ARE YOU NOT LAUGHING AT MY COMEDY??? 😭💔 I'M LITERALLY THE FUNNIEST PERSON IN YOUR LIFE (according to absolutely nobody but myself) 😭🤡
+
+Okay but seriously, meri jaan!! 🥹❤️
+
+I hope that whatever made you open this little letter, even if it was just boredom, gets a little lighter now!! I hope your lips curl into that pretty smile of yours, and I hope you laugh so much that you forget what was bothering you for a little while!!
+
+And if you ever catch yourself smiling at your phone because of this stupid little letter, just know that somewhere, your boy is probably imagining your reaction and smiling like an idiot himself!! 😭🫶🏼
+
+I wish I could be there to make you laugh in person, annoy you with the most random nonsense, steal your attention at the most inconvenient times and then act all innocent when you call me annoying!! 🤭💗
+
+But until then, please remember that you have a boyfriend who will embarrass himself without hesitation if it means getting even ONE little laugh out of you!! 😭😂
+
+And baby, you don't always have to be serious, strong or sensible!! Sometimes you can just be a little silly, laugh at the dumbest things and let yourself enjoy the tiniest moments!! Life is already serious enough, so let us be two idiots in love sometimes, okayyyy?? 😭💋
+
+Now smile for meeeee!! NOOOO, NOT A FAKE ONE!! I WANT THE REAL ONEEEE!! 🫵🏼😭💗
+
+And if you smiled even a LITTLE while reading this, then my mission is accomplished!! 😌🫶🏼
+
+I LOVE YOUUUUU, MY PRETTY LITTLE GOOFBALL!! 💗😭
+
+Now go drink some water, fix that pretty face of yours and remember that you're dating the most unserious man alive!!
+
+BOHOOOOOOO ONE LAST TIME FOR GOOD MEASUREEEEE 🫣👻😂🫶🏼
+
+Forever your personal clown, professional annoyer and favourite idiot,
+
+Your Sujallllll ♡`,
+
+`Heyyyy my babyyyyyyy, my pretty girl!! 🥹💗
+
+Come here for a second, baby!! Put everything aside and read this slowly for me, okayyy? No rushing through it, no overthinking every sentence, just you and these little words from your boy!! 🫶🏼
+
+I don't know what made you doubt yourself today!! Maybe something didn't go the way you planned, maybe someone made you feel like you weren't enough, maybe you're comparing yourself to someone else, or maybe your own thoughts are being a little too mean to you right now!!
+
+But whatever it is, meri jaan, I need you to remember something!!
+
+You are so much more than the things you achieve, the mistakes you make, or the way other people perceive you!!
+
+You don't have to be the smartest person in the room to be intelligent!! You don't have to get everything right to be capable!! You don't have to have your entire future figured out to be someone who's going somewhere in life!!
+
+You're allowed to learn!! You're allowed to make mistakes!! You're allowed to change your mind, start over, take your time and become a different version of yourself as you discover who you want to be!!
+
+And please, baby, don't let one bad day convince you that you're not doing enough!! Sometimes we become so focused on everything we haven't accomplished yet that we forget to appreciate how far we've already come!!
+
+I wish you could see what I see when I look at you, Shreya!! Not some perfect girl who never struggles or makes mistakes, but a real person with her own thoughts, dreams, fears, strengths and little imperfections!! A girl who's still growing, still learning, still figuring things out!! And someone who deserves to be proud of herself even when the journey feels a little messy!! ❤️‍🩹
+
+And listen, my love, I'm not saying all this just because I'm your boyfriend and I want to make you feel better!! I'm saying it because your worth shouldn't depend on whether you're having a good day or a bad one!! You don't become less deserving of happiness just because you failed at something!! You don't become less capable because someone else did something better!! And you certainly don't become less wonderful because you're struggling to see the good in yourself today!!
+
+Please don't become your own harshest critic, baby!! Be someone you can feel safe being yourself with, too!! And that includes the way you speak to yourself when nobody else is around!!
+
+If you wouldn't say those cruel things to someone you love, why should you say them to yourself? You deserve the same patience, kindness and understanding that you so freely give to the people who matter to you!! 🫂🤍
+
+And I want you to know something else!!
+
+I don't love you because I think you're perfect!! I love you because you're YOU!! Because of the person you are, the way you think, the things you care about, the little things that make you different from everyone else!! I love getting to know you more and more, and I want to keep watching you discover yourself, your abilities and all the things you might not even realise you're capable of yet!!
+
+I will always be happy to remind you of your strengths when you forget them, but I also hope that one day, even when I'm not right there to reassure you, you'll be able to look at yourself and say, "Maybe I'm not where I want to be yet, but I'm learning, I'm growing, and I'm allowed to believe in yourself." 🥹❤️
+
+Because, baby, I want you to believe in yourself for YOU!! Not just because your boyfriend believes in you, not just because someone tells you that you're amazing, but because you slowly learn to recognise your own worth, too!!
+
+So here's a tiny reminder from your Sujal, for the days your mind tries to convince you otherwise!!
+
+You are allowed to take up space!! You are allowed to have big dreams!! You are allowed to try things you're scared of!! You are allowed to be proud of yourself!! You are allowed to rest when you need to!! And you are allowed to believe that good things can happen to you, too!!
+
+You don't need to have everything figured out today, meri jaan!! Just take the next little step, whatever that looks like for you!!
+
+And whenever you feel like you're not enough, come back here and borrow a little belief from me until you find yours again!! 🫂💗
+
+I'm rooting for you, Shreya!! Not because I expect you to become someone extraordinary, but because I already see so much in the person you are, and I'm excited to see the person YOU choose to become!!
+
+I hope you become someone who looks at herself with kindness, celebrates her little victories, forgives herself for her mistakes and never gives up on her dreams just because the road gets difficult!!
+
+And when you finally achieve something you've been working so hard for, I hope you look back at the version of yourself who doubted everything and feel proud that she kept going!!
+
+Until then, my baby, breathe!! Take your time!! Be gentle with yourself!!
+
+You don't have to prove your worth to the world every single day!!
+
+You are a work in progress, not a disappointment!! And I hope you never forget that!! 🤍🌷
+
+I love you so so so much, my Shreyaaa!! And I hope that one day, when you look at yourself, you see even a little of the beautiful potential that I see in you!!
+
+Forever your biggest supporter, your safe place and the boy who's always cheering for you!!
+
+Your Sujal ♡`,
+
+`Heyyyyy my shreyaaaaa, my babyyyy!! 🥹💗
+
+It's late, isn't itttt? And you're still awake, reading this little letter from your boy!! 😭🫶🏼 I wish I could know what you're thinking about right now!! Is your mind being a little too loud tonight? Are you thinking about a hundred different things at once? Or are you simply wishing you had someone beside you right now?
+
+Whatever it is, meri jaan, I'm here!! Well, not physically beside you, unfortunately 😭💔 BUT YOUR BOY HAS LEFT YOU A LITTLE PIECE OF HIMSELF RIGHT HEREEEE!! 🫂💗
+
+Sooo, first things first, put that phone down for a second, get yourself comfortable, adjust your pillow, pull that blanket over yourself and take a nice, slow breath for me, okayyy? And then come back and finish reading this because your boyfriend has MORE THINGS TO SAYYYYY 😭🤭❤️
+
+Baby, you know what I wish for sometimes?
+
+I wish I could be there on nights like these!! Not necessarily to talk about something important or do anything special, but just to exist beside you!! To listen to you talk about the most random things that happened during your day, even if the story takes twenty minutes and has absolutely no point whatsoever!! 😭😂 To hear your sleepy little voice, watch you slowly get comfortable, and remind you that you don't have to keep your mind occupied with everything in the world tonight!!
+
+I'd probably annoy you a little first, obviously!! 🤡🫶🏼 Because what kind of boyfriend would I be if I didn't??
+
+I'd be like, "BABYYYY, SLEEP!!" and then proceed to talk for another forty-five minutes because I ALSO DON'T KNOW HOW TO STOP TALKING TO YOUUUYUUU 😭😭💗
+
+But eventually, I'd want you to feel peaceful enough to close your eyes without feeling like you have to figure everything out before morning!!
+
+And my love, if your mind is running through today's conversations, tomorrow's responsibilities, old memories or things you can't quite explain, please remember that you don't have to solve everything tonight!!
+
+Whatever needs your attention can wait until you've rested!! You don't have to replay every little moment, find an answer to every question or prepare yourself for every possible thing that could happen!! Sometimes, it's okay to let a thought pass without following it all the way to the end!!
+
+Tonight, you can simply be Shreya!! Not the girl who has to get everything right, not the girl who has to figure out her future, not the girl who needs to have an answer for everything!!
+
+Just my girl, who deserves a little peace and a good night's sleep!! 🥹🤍
+
+And babyyyy, if I could whisper one thing to you before you fell asleep, it would be this!!
+
+You are so loved!! You don't need to do anything to earn that love tonight!! You don't need to be entertaining, cheerful, productive or even in the best mood!! You can be sleepy, quiet, a little emotional or completely exhausted, and you would still be just as deserving of love and care!!
+
+I hope you know that, my shreyaaa!! I really, really do!! ❤️‍🩹
+
+And maybe, someday, when we're finally in the same place and don't have to rely on phone screens to feel close to each other, we'll have these silly late-night moments together!! We'll talk about absolutely nothing, laugh at things that aren't even funny, and eventually realise that it's ridiculously late and we should have been asleep hours ago!! 😭💗
+
+Until then, I hope this little letter makes the distance feel a tiny bit smaller tonight!!
+
+Imagine me reminding you to get comfortable, telling you that you've done enough for today, and asking you to give yourself permission to rest!! No pressure to fall asleep immediately, baby!! Just let yourself slow down a little and be comfortable!!
+
+And if you're still awake after reading this, HEYYYYYY 😭 GO TO SLEEP, WOMANNNN!! YOUR BOYFRIEND WROTE YOU A WHOLE ESSAY AND YOU'RE STILL NOT SLEEPINGGGG?? 😭🤡💗
+
+HAHAHAHAHA OKAY I'M SORRYYYYY!! ONE LAST THINGGGG!! 🤭🫶🏼
+
+Goodnight, my beautiful girl!! 🌙💗
+
+I hope your thoughts become a little quieter, your heart feels a little lighter, and tomorrow brings you something that makes you smile!!
+
+I hope you wake up feeling rested, with a little more energy to face whatever the day brings!! And I hope that even in the quietest hours of the night, you remember that you are cared for, you are cherished, and you never have to be perfect to be loved!!
+
+I love you, Shreya!! More than I can fit into one letter, more than I can explain in one conversation, and probably more than your sleepy brain can process right nowww 😭❤️
+
+Now close those pretty eyes, my babyyyy!! 🫂
+
+Let today end, let tomorrow wait, and give yourself the rest you deserve!!
+
+Sleep well, meri jaan!! Sweet dreams, my favourite human!! I hope you dream of all the beautiful little things that make you happy!!
+
+And if I happen to show up in your dreams, PLEASE BE NICE TO ME THERE TOO 😭😂🫶🏼💗
+
+Gooooooood nighttttttttt babyyyyyyyyyy, i loveeeeeeeeee youuuuuuuuuuuu muwahhhhhhhh muwahhhhhh muwahhhhhhhhh from your Sujal, who's sending you a million forehead kisses and the warmest hug from wherever he is!! 🌙💋
+
+I love you to the moon and back, my shreyaaa!! ♡`,
+
+`HEYYYYYYYY MY LOVEEEEEEEEE, MY BABYYYYY!! 😭💗🫶🏼
+
+YES YOUUU!! THE PRETTIEST GIRL WHO JUST OPENED A RANDOM LETTER ON A RANDOM DAY FOR ABSOLUTELY NO REASONNNN!! 🤭💋
+
+BHOooo 🫣👻
+
+HAHAHAHAHAHA OKAY I'M SORRYYYY 😭😂 I HAD TO DO THAT!!
+
+Anywayyyyy, meri jaan, come here for a second!! 🫂❤️ I don't know what you're doing right now!! Maybe you're studying, maybe you're scrolling through your phone, maybe you're lying in bed doing absolutely NOTHINGGGG 😭 or maybe you're just going about your day without expecting to find a little letter from your boyfriend!!
+
+But that's exactly why I wanted to write this one!!
+
+Because not every beautiful thing needs a special occasion!! Not every I love you needs a reason!! And not every reminder that you're special needs to arrive on your birthday, during a difficult day, or when you're missing someone!!
+
+Sometimes, I just want to remind you that I love you on a completely ordinary Tuesday, Wednesday, Thursday, or whatever day you're reading this on!! A day when nothing extraordinary happens, when life is just life, and when everything feels wonderfully, beautifully normal!! 🥹🤍
+
+And baby, do you know what I find so special about that?
+
+It's the thought that somewhere in the middle of my ordinary life, YOU became someone I want to share it with!!
+
+Like, it's not just the big moments I want with you!! It's the little ones, too!! The random conversations that start with absolutely nothing and somehow go on forever!! The silly things I see during my day that immediately make me think, "OH MY GOD, I NEED TO TELL SHREYA THIS!!" 😭💗 The songs I want to send you, the food I want you to try, the random thoughts that would make absolutely no sense to anyone else but somehow become a whole conversation between us!!
+
+It's the little updates, the unimportant stories, the random good mornings, the "guess what happened today" messages and the conversations where neither of us has anything particularly interesting to say, but we still want to talk!! 😭🫶🏼
+
+I want the ordinary parts of life with you, Shreya!!
+
+I want to know about the little things that made you smile today!! I want to hear about the random thing that annoyed you, the funny thing someone said, the book you're reading, the thought that crossed your mind while you were doing something completely unrelated!!
+
+I want to know the tiny details that might not seem important enough to remember but somehow become part of the story of us!!
+
+And no, baby, I'm not saying every single day will be magical!! Some days will be boring, some will be tiring, some will be full of responsibilities, and some will probably involve us being annoyed at absolutely everything for no reason whatsoever 😭🤡💗
+
+But I think there's something beautiful about having someone you can share those days with, too!!
+
+Someone you don't always have to impress!! Someone you can be silly around!! Someone you can tell the most random things to without wondering whether they're worth sharing!!
+
+And I hope I can keep being that person for you, my love!! Not just someone who writes you long letters or plans little surprises, but someone you can talk to about absolutely anything!! Someone who wants to know the real you, even on the days when there's no big story to tell!!
+
+Because, Shreya, you don't have to make every conversation interesting for me!! You don't have to have exciting news every time we talk!! You don't have to be in a particular mood or have something special to say!!
+
+Sometimes, just hearing about your day is enough to make an ordinary part of mine feel special!! 🥹❤️
+
+And here's another thing I want you to remember!!
+
+You don't have to wait for a special day to feel loved, okayyy? You don't need a birthday, an anniversary, an elaborate gift or a grand romantic gesture to deserve affection!!
+
+Sometimes love is a long letter like this one!! Sometimes it's a silly message that makes you laugh!! Sometimes it's someone remembering a little thing you said days ago!! And sometimes it's simply someone asking how your day went and genuinely wanting to hear the answer!!
+
+I want us to have those little moments, baby!! The kind that might look insignificant to everyone else but mean something to us because they're ours!! 🤍🌷
+
+And imagine this, my shreyaaa!!
+
+Someday, when the distance isn't such a big part of our story anymore, I hope we'll get to experience even more of these ordinary moments together!! Maybe we'll go out somewhere without planning anything fancy!! Maybe we'll sit together and talk about our day!! Maybe we'll do our own separate things while being in the same room!! Maybe we'll laugh at something stupid and spend the next ten minutes trying to explain why it's so funny!! 😭😂💗
+
+And maybe, at the end of one completely ordinary day, we'll realise that we didn't do anything particularly extraordinary at all!!
+
+We just got to spend some time together!!
+
+And that was enough to make the day feel special!!
+
+I don't know exactly what our future will look like, baby, but I know I want to keep discovering it with you, one little moment at a time!! No need to make every day perfect, no need to rush through every stage, just two people continuing to learn about each other and choosing to make room for each other in their lives!! 🫂❤️
+
+So, my love, wherever you are and whatever you're doing right now, here's your completely unnecessary, absolutely unannounced reminder from your boyfriend:
+
+I LOVE YOUUUUUUU, SHREYAAAAA!! 😭💗💋
+
+I love your presence in my life!! I love getting to know you!! I love the little things that make you who you are!! And I'm so glad that somewhere along the way, our paths crossed and we got to become part of each other's stories!!
+
+I hope today gives you at least one tiny reason to smile!! Maybe this letter can be that reason!! 🤭🫶🏼
+
+And if today is just an ordinary day, then let it be ordinary!! You don't have to turn it into something extraordinary for it to be worth living!!
+
+Eat something you like, listen to a song you love, take a little break if you need one, laugh at something silly and be kind to yourself!!
+
+And remember that even on the most uneventful days, there are still little things worth appreciating!!
+
+Today doesn't have to be special for you to be special to me, my girl!! 🥹🤍
+
+Okayyyy, I'm done being all sentimental now because your boyfriend is getting emotional over an ordinary day AGAINNN 😭😭😭💗
+
+GO DO WHATEVER YOU WERE DOING, WOMANNNN!! 😭😂🫶🏼
+
+But before you go, one last thing!!
+
+If you smiled while reading this, then mission accomplished!! If you didn't, BOHOOOOO 👻🫣 I'M SENDING YOU ANOTHER LETTER UNTIL YOU DOOOO 😭🤡💗
+
+I love you, my Shreya!! On birthdays, anniversaries, difficult days, exciting days, sleepy days, boring days and all the random days in between!!
+
+Here's to the little moments, the ordinary days and all the beautiful memories we haven't made yet!! 🌷❤️
+
+Forever your boy, your personal clown, your enthusiastic storyteller and the person who will probably send you another long message when you least expect it!!
+
+Your Sujal ♡`,
+
+`Bachchaaaaa 🥹🩷🫂
+
+Sooo... we had a disagreement, huhhh?? 😭🫠 I don't know what happened this time, who's upset, who's overthinking, or whether we're both sitting there waiting for the other person to say something first 😭🤏🏻 But before you do anything, I want you to take a deep breath and read this properly, okayyy?? No skipping lines, madammmm!! 😭🫵🏻🩷
+
+First of all, I love youuuuuuu!! And I need you to remember that even when we're upset with each other, even when we don't understand each other's point of view, and even when a conversation doesn't go the way we wanted it to, my feelings for you aren't something you need to question every single time!! 🫂🩷
+
+I know we're two different people, bachcha!! We have different ways of thinking, different ways of expressing our feelings, and sometimes we understand the exact same situation in completely different ways!! Something that feels normal to me might hurt you, and something that makes sense to you might be difficult for me to understand immediately!! Sometimes we might even end up hurting each other while trying to explain why we're hurt ourselves!! 😭🫠
+
+And honestly, I know we're not always going to get everything right!! We're going to misunderstand each other sometimes!! There might be days when one of us is exhausted, when our minds are already occupied with a hundred different things, or when we simply don't have the right words to explain what we're feeling!! Sometimes we might need a little time before we can talk properly!! And that's okay, my love!! We don't have to be perfect at understanding each other every single time!! We just have to be willing to try again!! 🩷🫂
+
+But bachchaaaa, there's something I really want you to remember!! I don't want us to become opponents just because we disagree about something!! I don't want us to focus so much on proving who's right that we forget to understand why the other person feels the way they do!! I don't want either of us to feel like our feelings don't matter just because the other person sees things differently!!
+
+We're allowed to disagree, honey!! We're allowed to be upset, to explain ourselves, to ask questions, and even to need some time to process things!! You don't have to agree with everything I say, and I don't expect you to!! I want you to be comfortable enough to tell me when you disagree with me!! I want to understand your perspective, even when it's different from mine!! And I hope you know that you can always tell me when something I've said or done has hurt you!! 🫂🩷
+
+And if I've hurt you this time, I'm genuinely sorry, bachcha!! I might not always realise immediately how something sounds from your side!! Sometimes I get caught up in explaining what I meant, and I forget to understand how it made you feel!! Sometimes I might get defensive because I feel misunderstood myself!! But I don't want my intentions to become more important than your feelings!! If something I've done has hurt you, I want to understand it instead of simply expecting you to move past it because I didn't mean to hurt you!!
+
+And I want the same for myself, too!! If something hurts me, I want to be able to tell you without making you feel like you're a terrible girlfriend!! I want us to be able to explain our feelings without turning every disagreement into a question of whether we're good enough for each other!! We can make mistakes without being bad people!! We can hurt each other without intentionally wanting to!! And we can apologise, learn, and do things differently next time!! 🩷🫶🏼
+
+Bachcha, please don't sit there thinking that you have to solve everything immediately!! If you're upset, you're allowed to be upset!! If you need some time to calm down and understand your feelings, take that time!! You don't have to force yourself to talk when you're overwhelmed, and you don't have to pretend you're okay just to make the situation less uncomfortable!!
+
+But when you're ready, I hope we can come back to the conversation and try to understand each other!! I don't want either of us to feel like we have to guess what the other person is thinking!! I'd rather we tell each other honestly, even if it takes a little time to find the right words!! 🫂🩷
+
+And listen, idiottttt!! 😭🤏🏻 One disagreement doesn't erase all our memories!! It doesn't erase the times we've laughed together, the silly conversations we've had, the moments when we couldn't stop talking, or all those little things that made us happy to have each other in our lives!!
+
+Remember our random conversations?? The way we can start talking about one thing and somehow end up talking about a hundred completely unrelated things?? 😭😂🩷 The silly jokes, the random yaps, the little moments when one of us says something so stupid that the other can't stop laughing!! Those moments are still ours, bachcha!! A disagreement doesn't make them any less real!!
+
+And I'm not saying this because I want us to ignore our problems and pretend everything is fine!! No, honey!! If something needs to be discussed, let's discuss it!! If something needs to change, let's work on it!! If one of us needs to apologise, let's be honest enough to do that!! I just don't want us to forget the good things about each other while we're trying to work through the difficult things!! 🩷🫂
+
+I want us to learn how to love each other better, not because we never make mistakes, but because we're willing to understand those mistakes and grow from them!! I want us to become more comfortable expressing our feelings, more patient when we're frustrated, and more understanding when we don't immediately see things the same way!!
+
+And bachcha, please remember that you don't have to earn my kindness by agreeing with me!! You don't have to hide your opinions, swallow your feelings, or pretend something doesn't bother you just because you're worried I'll be upset!! I want to know the real you, including the parts of you that disagree with me, get frustrated, need space, or have feelings I don't immediately understand!! You deserve to be heard, too!! 🫂🩷
+
+And I hope you remember that I have feelings, too!! If I tell you something has hurt me, I'm not necessarily blaming you for everything!! Sometimes I'm just trying to let you understand what's happening inside my head!! I want us to make room for both our feelings without turning it into a competition about who's hurting more!! We don't have to choose whose feelings matter!! Both of ours do!!
+
+I know that sometimes we might not get the perfect resolution to every conversation!! Sometimes we'll need to revisit things, and sometimes understanding each other will take longer than we'd like!! But I don't want us to give up on communicating just because one conversation was difficult!! I want us to keep learning how to talk to each other, even when we're upset!! 🩷🫶🏼
+
+So, my babyyyyy, if you're reading this while we're still upset with each other, I want you to know that you don't have to figure everything out this very second!! Put your phone down for a little while if you need to!! Drink some water, breathe, and give yourself some time!! And when you're ready, let's talk!! Not to prove who's right, not to make the other person feel guilty, but to understand what happened and how we can do better!!
+
+And if you're reading this after we've already made up, then come hereeeee!! 😭🫂🩷 Consider this your reminder that I'm glad we took the time to understand each other!! I hope we keep learning from these little moments instead of repeating the same mistakes!! And I hope we remember that a healthy relationship isn't one where two people never disagree!! It's one where both people can express themselves, take responsibility, respect each other's boundaries, and work towards understanding each other!!
+
+Bachchaaaa, I love youuuuuuu!! 😭🩷🫶🏼 I love the person you are, and I love all those little things that make you YOU!! I don't expect you to get everything right, and I know I won't either!! I just want us to keep being honest with each other and keep putting effort into understanding each other!!
+
+We don't have to win against each other, honey!! We just have to figure things out together!! And if we need a little time before we can do that, that's okay, too!! 🫂🩷
+
+Now come onnnn, give that stubborn little brain of yours a break!! 😭🤏🏻 And please don't read this and think you have to reply with another huge paragraph explaining every single thing!! Tell me what you're feeling when you're ready!! I want to hear you, not just receive the perfect response!!
+
+I loveeeeeeeee youuuuuuuuu, bachchaaaaa!! 😚🩷🫶🏼🧿🫂
+
+And remember, madammmm... we're allowed to disagree!! We're allowed to have difficult days!! We're allowed to get things wrong sometimes!! What matters is how we treat each other through it all and what we choose to learn afterward!! ❤️‍🩹🩷`,
+
+`Bachchaaaaa 🥹🫂🩷
+
+Sooo, you're exhausted, huhhh?? And maybe you're exhausted even from me this time!! 🫠 Maybe you're tired of everything going on in your life, your responsibilities, your thoughts, our conversations, my overthinking, or having to explain things to me again and again!! Maybe you just want some peace and don't have the energy to talk to anyone right now!!
+
+And bachcha, that's okay!! Really!! 🫂🩷
+
+You don't have to be okay all the time!! You don't have to keep reassuring me when you're already struggling with your own thoughts!! You don't have to find the perfect words to explain everything to me when you barely have the energy to explain things to yourself!! And you definitely don't have to pretend to be happy just because you're talking to me!!
+
+I know I can be a lot sometimes, honey!! 😭🫠 I know my overthinking can make simple things complicated, and sometimes you might feel like you're explaining the same things to me again and again!! I know there might be moments when you just want to rest, but my mind has a hundred questions waiting for you!! And I'm sorry for the times I've added to your exhaustion without realising it!! 🫂🩷
+
+But please, bachcha, remember that you don't have to carry everything at once!! You can take a break!! You can put your phone down, get some sleep, listen to your favourite songs, read your books, or just lie there doing absolutely nothing!! You don't have to keep replying to me every minute to prove that you love me!! 😭🩷
+
+And if you're exhausted even from me, you can tell me that too!! You don't have to be scared that I'll immediately misunderstand you or think you've stopped loving me!! I might feel a little sad hearing it, because you're someone I love so much, but I want you to be honest with me!! I'd rather understand that you need some breathing room than have you force yourself to keep talking when you're completely drained!!
+
+Taking a little time for yourself doesn't mean you're doing something wrong, honey!! And needing some quiet doesn't make you a bad girlfriend!! You're allowed to have days when you don't feel like talking much!! You're allowed to miss me and still need some time alone!! Both things can be true at the same time!! 🫂🩷
+
+And please don't think you have to solve every problem between us tonight!! If something is bothering you, we can talk about it when you've rested and feel ready!! We don't have to figure everything out while we're both exhausted!! Sometimes we need a little time to calm down before we can understand each other properly!! I'd rather we have an honest conversation when we have the energy for it than keep talking until we're both too overwhelmed to understand what the other person is trying to say!!
+
+Bachchaaaa, you're a person outside this relationship, too!! You have your own thoughts, your own feelings, your own responsibilities, your own little world!! And I want you to have room for all of that!! I don't want loving me to feel like another responsibility on your already long list of things to do!! I want you to be able to enjoy your life, rest when you need to, and have moments that are just yours!! 🩷🫶🏼
+
+And about me, honey… I'll try to work on my overthinking, too!! I know I can't expect you to reassure me every single time my mind comes up with another fear!! I'll try to understand that sometimes you're simply tired, sometimes you're busy, and sometimes you just don't have the energy to talk!! Not every quiet moment means something is wrong between us!! I'm learning that, too, bachcha!! And I'll keep trying!!
+
+But I also want you to remember that you can come to me when you're exhausted!! You don't have to wait until you've figured everything out before telling me that you're having a difficult day!! You don't have to make your feelings sound reasonable or explain them perfectly!! You can simply tell me that you're tired and that you need someone to listen!! And if you don't want advice, I'll try to listen without turning everything into a problem that needs to be solved immediately!! 🫂🩷
+
+Sometimes you might need a conversation, sometimes you might need a little encouragement, and sometimes you might just need to sleep for twelve hours and ignore the entire world for a while!! 😭🤏🏻 Whatever it is, I hope you give yourself permission to rest without feeling guilty about it!!
+
+And if you're reading this because you're exhausted from something that happened between us, I want you to know that we can acknowledge it without blaming ourselves for every little thing!! If I've hurt you, I want to understand how!! If something needs to change, we can talk about it!! You don't have to pretend something is okay just to protect my feelings!! Your feelings deserve space, too, and I want to understand them even when they're difficult for me to hear!!
+
+I love you, bachcha, but I don't want my love to become something that makes you feel like you can never breathe!! I want us to learn how to love each other in a way that leaves room for both closeness and individuality!! A way where you can tell me you need rest without feeling guilty, and I can tell me I miss you without making you responsible for fixing every feeling I have!! I think that's something we can keep learning together!! 🩷🫂🧿
+
+And listen, madammmm!! 😭🫵🏻 Just because you're exhausted today doesn't mean you have to figure out how you'll feel tomorrow, next week, or a month from now!! For now, just take care of yourself!! Eat something if you haven't, drink some water, get comfortable, and give that pretty little mind of yours a break!! You deserve rest even when you haven't finished everything on your to-do list!!
+
+You don't have to earn rest by making everyone else happy first!! You don't have to earn kindness by being cheerful!! And you don't have to be the strongest person in the room every single day!!
+
+So, bachchaaaa, if you need some time, take it!! If you need to talk, I'm willing to listen!! If you need to tell me something uncomfortable, you can be honest with me!! We don't have to pretend we're never going to get tired or frustrated sometimes!! We're human, and we're still learning how to understand each other!!
+
+I loveeeeeeeee youuuuuuuuu, honeyyyyyy!! 😚🩷🫶🏼🧿🫂
+
+And one last thing before you close this letter… please don't be so hard on yourself!! You're allowed to be tired!! You're allowed to have a bad day!! You're allowed to need a little distance from everything for a while!! You don't have to figure out your entire life tonight!!
+
+Now go rest, bachchaaaa!! 😭🫂🩷 You can come back to everything when you have the energy for it!! And when you're ready to talk again, we can talk!! No pressure to have all the answers right now!!
+
+Take care of yourself for me, okayyy?? 🥹🩷🫶🏼🧿`
+];
+
+const noteTitles = [
+  "When you miss me",
+  "When today feels heavy",
+  "When you need a laugh",
+  "When you doubt yourself",
+  "When you can't sleep",
+  "On a random ordinary day",
+  "When we had a disagreement",
+  "When you're exhausted, even from me"
+];
+
+/* =====================================================================
+   2. POLAROID MEMORIES DATA
+   ===================================================================== */
+const polaroidMemories = [
+  { title: "The little Mumbai trip", photo: "polaroid-1", letter: "letter-1" },
+  { title: "The view behind me", photo: "polaroid-2", letter: "letter-2" },
+  { title: "A little scary, a lot special", photo: "polaroid-3", letter: "letter-3" },
+  { title: "A birthday smile", photo: "polaroid-4", letter: "letter-4" },
+  { title: "The accidental picture", photo: "polaroid-5", letter: "letter-5" },
+  { title: "The happiest frame", photo: "polaroid-6", letter: "letter-6" }
+];
+
+/* =====================================================================
+   3. SECRET MULTI-PAGE LETTERS DATA
+   ===================================================================== */
+const secretLetters = [
+  { title: "Random letter 1", pages: ["secret-1-page-1", "secret-1-page-2"] },
+  { title: "Random letter 2", pages: ["secret-2-page-1", "secret-2-page-2"] },
+  { title: "Random letter 3", pages: ["secret-3-page-1", "secret-3-page-2"] },
+  { title: "Bappa's blessings", pages: ["bappa-page-1"] },
+  { title: "Bracelet note", pages: ["bracelet-page-1"] }
+];
+
+/* =====================================================================
+   4. OUR LITTLE HOME ROOMS (NOW AS ENVELOPE NOTES)
+   ===================================================================== */
+const roomTitles = [
+  "The kitchen",
+  "The window",
+  "The bookshelf",
+  "The living room"
+];
+
+const roomNotes = [
+`Bachchaaaaa 😭🩷🫂
+
+Imagine this for a second, okayyy?? It's just another ordinary day, and we're both in our little home!! You're in the kitchen doing something, and obviously, I'm there too, disturbing you every two seconds because apparently, you can't do anything peacefully when I'm around!! 😭🤏🏻
+
+You're trying to cook, and I'm standing beside you, pretending to help, but honestly, I'm probably making things more difficult for you!! 😭😂 Maybe I'm stealing little bites of whatever you're making, or asking you a hundred unnecessary questions, or just standing there watching you do your thing!!
+
+And you'll probably turn around and say, "SUJALLLL, LET ME COOKKKK!!" 😭😭
+
+BUT HOW AM I SUPPOSED TO LEAVE YOU ALONE WHEN YOU LOOK SO CUTE DOING THE MOST ORDINARY THINGS, HUH??? 😭🩷🫶🏼
+
+Maybe you'll ask me to chop something, and I'll somehow manage to do it wrong!! Or you'll tell me to bring something from the cupboard, and I'll bring the completely wrong thing because I was too busy looking at you!! 😭🤏🏻
+
+And then we'll both start laughing over something so stupid that neither of us can even explain why it's funny anymore!! 🥹🩷
+
+Maybe you'll feed me a little bite to check whether the food tastes right, and I'll say it's perfect even before tasting it properly!! Or maybe I'll sneak a bite from your plate, and you'll give me that look of yours!! 😭😂🫂
+
+And bachchaaaa, imagine us cooking together late at night, with sleepy eyes, messy hair, and absolutely no idea what we're doing!! Maybe we'll make Maggi, maybe we'll try some random recipe we saw online, or maybe we'll completely mess up the food and end up ordering something instead!! 😭😭
+
+BUT THE POINT IS, WE'LL BE TOGETHER!! 🩷🧿
+
+And you know what I think is the cutest part?? It won't be some special occasion!! We won't be dressed up for a date, there won't be anything extraordinary happening, and we won't even be doing anything particularly exciting!!
+
+It'll just be us!! In our kitchen!! Sharing food, stealing bites, teasing each other, laughing over stupid things, and finding happiness in the most ordinary little moments!! 🥹🫂🩷
+
+I think that's one of the things I look forward to the most, honey!! Not just the big adventures or the beautiful places we'll visit, but the little everyday moments that we'll get to share when we're finally living our lives together!! The moments that might seem completely ordinary to everyone else but will mean so much to us!!
+
+So, bachchaaaa, if you're reading this someday while we're actually standing in our kitchen together, PLEASE REMEMBER THAT I'VE BEEN DREAMING ABOUT THIS KIND OF MOMENT TOO!! 😭🩷🫶🏼
+
+Now come hereeeee and give me a bite of whatever you're making!! 😭🤏🏻
+
+I loveeeeeeeee youuuuuuuuu, my little kitchen partner!! 😚🩷🫶🏼🧿🫂`,
+
+`Bachchaaaaaa 😭🩷🫂
+
+Imagine this for a second, okayyyyy?? 🥹🌧️
+
+It's raining outside!! The sky is all grey, tiny droplets are sliding down the window, and you can hear that soft pitter-patter of the rain!! The whole world feels a little quieter, a little colder, and somehow a little more beautiful!! 😭🩷
+
+And there we are!! Sitting beside the window in our little home, watching the rain together!! Maybe you're wrapped in a blanket, and I'm sitting right beside you, occasionally disturbing your peace because apparently, I CANNOT LET YOU ENJOY FIVE MINUTES OF SILENCE WITHOUT BOTHERING YOU!! 😭🤏🏻😂
+
+Maybe you're resting your head against the window, watching the raindrops race each other down the glass, and I'm asking you the most random questions ever!! 😭
+
+"BACCHAAAAA, WHICH RAINDROP DO YOU THINK WILL WINNNN??" 😭😭
+
+And you'll probably look at me like I'm the most ridiculous person alive!! BUT I'M SERIOUSSSS, THIS IS AN IMPORTANT COMPETITION!! 😭😂🩷
+
+Maybe we'll make some chai or hot chocolate, bring a few snacks, and sit there for hours without even realizing how much time has passed!! We'll talk about everything and nothing!! Our day, our silly thoughts, our future plans, random gossip, and all those little things we somehow end up telling each other!! 🥹🫶🏼
+
+And sometimes, we won't even need to talk!!
+
+We'll just sit there together, watching the rain fall, listening to the sound of the water, and enjoying the kind of silence that doesn't feel awkward because neither of us has to try to make the moment special!!
+
+Because being together will make it special all by itself!! 😭🩷🧿
+
+And bachchaaaa, imagine looking outside and seeing the rain pouring down while knowing that there's nowhere else we need to be!! No rushing, no worrying about when we'll meet next, no counting the hours before we have to say goodbye!!
+
+Just a rainy evening, a little warmth, something nice to drink, and us getting to spend as much time together as we want!! 🫂🩷
+
+Maybe I'll point at some random cloud and tell you it looks like something completely stupid, and we'll start laughing!! Maybe you'll take a picture of the rain because you think it looks pretty!! Maybe I'll secretly take a picture of you looking out the window because I want to remember that ordinary little moment too!! 😭🫶🏼
+
+And when you ask me why I'm taking pictures, I'll just say, "NOTHINGGGG, LOOK OUTSIDE!!" 😭🤏🏻
+
+BUT IN MY HEAD, I'LL BE THINKING ABOUT HOW LUCKY I AM THAT I GET TO SHARE EVEN THE QUIETEST PARTS OF MY DAY WITH YOU!! 🥹🩷
+
+You know, honey, I don't just dream about taking you to beautiful places or going on exciting dates with you!!
+
+I dream about moments like this too!!
+
+The rainy evenings!! The lazy afternoons!! The random conversations!! The times we'll sit beside each other doing absolutely nothing and somehow still have the best time!! The little routines that nobody else would think twice about but that we'll remember with so much love!! 😭🫂🩷
+
+Because someday, when it rains outside, I want us to have our own little window spot!!
+
+A place where we can sit together, watch the world get drenched, share our snacks, steal sips from each other's cups, and just exist beside each other without needing a reason!! 🌧️🩷
+
+And if you're reading this while it's actually raining outside, please imagine me sitting beside you in that little moment!! Being my usual annoying self, asking you silly questions, stealing your snacks, and reminding you that the rain is pretty BUT YOU'RE STILL MY FAVOURITE VIEWWWW!! 😭🤏🏻🩷
+
+I loveeeeeeeee youuuuuuuuu, my little rainy-day person!! 😚🩷🫶🏼🧿🫂
+
+Now tell meeeee, are we having chai or hot chocolate while watching the rain??? 😭😂🩷`,
+
+`Bachchaaaaaaa 😭📚🩷🫂
+
+Imagine this for a second, okayyyyy?? 🥹
+
+It's a quiet evening, and we're standing in front of our little bookshelf at home!! There are books everywhere, some neatly arranged, some lying sideways because apparently, we can't keep anything organised for too long!! 😭😂
+
+And obviously, half of the bookshelf is filled with YOUR books because we all know who's the bigger bookworm here!! 😭🤏🏻📚
+
+You're standing there, looking for a particular book, running your fingers along the spines, completely lost in your own little world!! And I'm standing beside you, pretending to understand the difference between all the editions you're showing me!! 😭😭
+
+You'll pick up a book and start telling me about the plot, the characters, and how I ABSOLUTELY HAVE TO READ IT!!
+
+And I'll be listening, asking questions, and occasionally interrupting you with the most unnecessary comments ever!! 😭😂
+
+Then you'll look at me and go, "SUJALLLL, I'M TRYING TO EXPLAINNNN!!" 😭🤏🏻
+
+AND I'LL BE LIKE, "OKAY OKAYYYYY, CONTINUE, I'M LISTENINGGGG!!" 😭🫶🏼
+
+But honestly, bachchaaaa, I think I'd love listening to you talk about the things you love!! The way your eyes light up when you're excited about a story, the way you get attached to fictional characters, and the way you can turn one little book recommendation into an entire lecture!! 😭🩷📚
+
+Maybe you'll pick a book for me and say, "YOU HAVE TO READ THIS ONE!!"
+
+And I'll take it from your hands like it's the most important assignment I've ever received!! 😭🙏🏻
+
+Maybe we'll start a little tradition where we recommend books to each other!! You'll make me read your favourites, and I'll keep asking you what you think about every chapter!! And if I get confused, you'll have to explain everything to me!!
+
+YESSSS, EVEN IF THAT MEANS YOU'LL HAVE TO EXPLAIN THE SAME THING THREE TIMES!! 😭😂🩷
+
+And imagine us trying to arrange the bookshelf together!!
+
+You'll want everything organised by author or genre, and I'll randomly put a book somewhere because I think it looks nice there!! 😭😭
+
+You'll turn around, notice what I've done, and immediately realise that trusting me with the bookshelf was a terrible decision!! 😭🤏🏻😂
+
+BUT IN MY DEFENCE, I'M JUST TRYING TO MAKE OUR LITTLE BOOK CORNER LOOK PRETTY!! 😭🫶🏼
+
+Maybe we'll leave tiny notes inside each other's favourite books!! Little messages that we stumble across months later and smile at all over again!! Or maybe we'll keep a small section just for the books we've read together, with little memories attached to each one!! 🥹🩷
+
+And someday, when our bookshelf gets too full, we'll have to buy another one!!
+
+And then another!!
+
+UNTIL OUR HOME IS BASICALLY A LIBRARY AND WE HAVE NOWHERE LEFT TO PUT ANYTHING ELSE!! 😭📚😂
+
+But you know what, honey??
+
+I think the cutest part wouldn't even be the books themselves!!
+
+It would be all the little memories attached to them!!
+
+The book you couldn't stop talking about!! The one I bought because you recommended it!! The one we read on a quiet evening!! The one that reminds us of a particular day!!
+
+And maybe, years from now, we'll look at that bookshelf and remember how our collection slowly grew alongside all the little moments we've shared!! 🥹🩷🫂
+
+I want those ordinary moments with you, bachchaaaa!!
+
+I want to know your favourite stories, listen to your endless book discussions, learn about the characters you love, and discover all those little things that make you YOU!!
+
+And even if I don't understand every single book you recommend, I'll still love hearing you talk about them!! 😭🩷🫶🏼
+
+So here's a tiny little dream for us!!
+
+A cosy home, a bookshelf filled with stories, two people arguing over where a book belongs, and a lifetime of little memories waiting to be made!! 📚🩷🧿
+
+Now come hereeeee, bookworm!!
+
+Pick a book for me!! But PLEASE choose wisely because if I end up loving it, you're going to hear me talk about it FOREVERRRR!! 😭😂🫶🏼
+
+I loveeeeeeeee youuuuuuuuu, my favourite little bookworm!! 😚🩷📚🫂`,
+
+`BACHCHAAAAAAA 😭🩷🫂
+
+Imagine this for a second, okayyyyy?? 🥹
+
+It's a lazy Sunday evening, and we're both in our little home!! The living room is all cosy, the curtains are slightly open, there's a soft blanket on the couch, and the TV is playing something that neither of us is actually watching properly!! 😭😂
+
+WHY???
+
+BECAUSE YOU'RE BUSY SCROLLING THROUGH YOUR PHONE AND I'M BUSY ASKING YOU WHAT WE SHOULD WATCH WHEN YOU'VE ALREADY REJECTED EVERY SINGLE THING I'VE SUGGESTED!! 😭🤏🏻
+
+"Bachchaaaa, this one??"
+
+"Nooo!!"
+
+"Okay, this one then??"
+
+"NOOOO SUJALLL!!"
+
+"THEN YOU PICK SOMETHINGGGG!!" 😭😭😂
+
+And somehow, after twenty minutes of searching, we'll end up watching something we've both seen a hundred times before!! 😭🩷
+
+Maybe you'll sit on one end of the couch with your favourite blanket, and I'll come and sit beside you, slowly stealing more and more of the blanket until you realise that I've somehow taken the entire thing!! 😭🤏🏻😂
+
+And you'll pull it back, and I'll pretend to be offended!!
+
+"BACHCHAAAAA, YOU DON'T LOVE ME ANYMORE!! YOU WON'T EVEN SHARE A BLANKET WITH ME!!" 😭🙏🏻
+
+And you'll probably tell me to stop being dramatic!!
+
+WHICH IS SO UNFAIR BECAUSE I'M CLEARLY THE VICTIM HERE!! 😭😂🩷
+
+Maybe we'll order something to eat, spread all the snacks across the coffee table, and promise ourselves that we'll clean everything up afterwards!!
+
+Spoiler alert: WE'LL PROBABLY FORGET ABOUT IT UNTIL ONE OF US NOTICES THE MESS!! 😭😭
+
+And imagine those evenings when one of us has had a really tiring day!!
+
+No plans, no expectations, no pressure to make the evening exciting!!
+
+Maybe you'll sit on the couch and tell me about everything that happened, and I'll listen while you get all the little details out of your system!! Maybe I'll tell you about my day too, and we'll end up laughing about something that seemed so annoying just a few hours earlier!! 🥹🩷
+
+And on days when neither of us feels like talking much, we can simply sit together!!
+
+You can read your book while I do my own thing, and every now and then, one of us will look up to show the other something random!!
+
+Maybe you'll suddenly say, "SUJALLL, LOOK AT THIS!!" and show me something on your phone!!
+
+And I'll immediately stop whatever I'm doing because apparently, whatever you want to show me is now the most important thing happening in the entire world!! 😭🫶🏼
+
+BUT BACHCHAAAA, DO YOU KNOW WHAT I THINK ABOUT SOMETIMES?? 🥹🩷
+
+I think about how one day, this won't have to be just something we imagine!!
+
+One day, after spending our day doing our own things, we'll get to come back to the same living room!!
+
+The same couch!!
+
+The same little coffee table!!
+
+The same place where we'll probably argue about the temperature of the AC, fight over the remote, and decide what to eat for dinner even though neither of us has any suggestions!! 😭😂🩷
+
+And we'll have so many little memories attached to that room!!
+
+The movie nights!!
+
+The random dancing!!
+
+The conversations that somehow last until we're both sleepy!!
+
+The days we laugh so much that we forget what started it!!
+
+The evenings when one of us needs a little encouragement and the other simply makes some time to listen!!
+
+The ordinary days that don't look particularly special from the outside but feel lovely because we're sharing them!! 🥹🫂🩷
+
+And maybe someday, we'll look around that living room and realise that we've slowly filled it with little pieces of our lives!!
+
+A photo from one of our trips!!
+
+A silly little decoration we bought together!!
+
+Books lying around because somebody refuses to put them back on the shelf!! 😭🤏🏻📚
+
+A blanket that somehow always ends up on the floor!!
+
+And a couch that has probably witnessed more of our nonsense than any other piece of furniture in the entire house!! 😭😂
+
+I don't dream about a perfect home, honey!!
+
+I dream about a home that feels like ours!!
+
+A place where we can be ourselves, where we can have good days and difficult days, where we can disagree and still try to understand each other, and where neither of us has to pretend that everything is okay when it isn't!!
+
+A place where we can keep learning about each other, growing together, and making little memories without needing a special occasion!! 🩷🧿
+
+Because I think that's what makes a home beautiful!!
+
+Not how expensive the furniture is!!
+
+Not how perfect everything looks!!
+
+But the life we build inside it, the kindness we show each other, and all the little moments that slowly make an ordinary place feel familiar and meaningful!! 🥹🫂
+
+So, bachchaaaaa, here's another tiny dream of mine!!
+
+A living room that we get to call ours!!
+
+A couch where we can spend lazy evenings!!
+
+A TV remote that will probably become the source of unnecessary arguments!!
+
+And countless ordinary evenings where we get to choose how we spend our time together!! 😭🩷🫶🏼
+
+NOW COME HEREEEEE AND PICK A MOVIE!!
+
+AND PLEASE DON'T SAY "ANYTHING IS FINE" AND THEN REJECT EVERY SINGLE OPTION I GIVE YOU!! 😭😭😂
+
+I loveeeeeeeee youuuuuuuuu, bachchaaaaa!! 😚🩷🫂🧿`
+];
+
+let envelopeTimer = null;
+let currentMode = "note"; // 'note' | 'polaroid' | 'secret' | 'room'
+let activeIndex = 0;
+let activeSecretPage = 0;
+let previouslyFocused = null;
+
+const overlay = document.getElementById("envelope-overlay");
+const envelope = document.getElementById("envelope");
+const letterPaper = document.getElementById("letter-paper");
+const polaroidBox = document.getElementById("polaroid-box");
+const letterContent = document.getElementById("letter-content");
+const letterImageWrap = document.getElementById("letter-image-wrap");
+const letterImage = document.getElementById("letter-image");
+const paginationControls = document.getElementById("pagination-controls");
+
+function resetOverlayViews() {
+  clearTimeout(envelopeTimer);
+  envelope.classList.remove("opening", "hidden");
+  letterPaper.classList.remove("visible");
+  polaroidBox.classList.remove("visible");
+  letterContent.classList.remove("hidden");
+  letterImageWrap.classList.add("hidden");
+  paginationControls.classList.add("hidden");
+  document.getElementById("envelope-close").classList.remove("hidden");
+}
+
+/* Toggle Polaroid Folders */
+function togglePolaroidFolders() {
+  const wrapper = document.getElementById("polaroid-subfolders");
+  const btn = document.getElementById("polaroid-folder-btn");
+  const isOpen = wrapper.classList.toggle("open");
+  btn.textContent = isOpen ? "Hide Folders ↑" : "Open Polaroid Memories ↗";
+  if (isOpen) {
+    setTimeout(() => {
+      wrapper.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }, 100);
+  }
+}
+
+/* Open When Note */
+function openNote(index) {
+  if (index < 0 || index >= notes.length) return;
+  resetOverlayViews();
+  currentMode = "note";
+  activeIndex = index;
+  previouslyFocused = document.activeElement;
+
+  document.getElementById("env-inner-label").textContent = "For my favourite person ♡";
+  document.getElementById("letter-eyebrow").textContent = "A little note from me to you";
+  document.getElementById("letter-title").textContent = noteTitles[index];
+  letterContent.textContent = notes[index];
+
+  document.getElementById("envelope-hint").textContent = "A little letter, just for you";
+  document.getElementById("envelope-instruction").textContent = "Click the envelope to open it ♡";
+
+  overlay.classList.add("active");
+  document.body.style.overflow = "hidden";
+  envelope.focus({ preventScroll: true });
+}
+
+/* Room Note (Opens in Envelope) */
+function openRoomNote(index) {
+  if (index < 0 || index >= roomNotes.length) return;
+  resetOverlayViews();
+  currentMode = "room";
+  activeIndex = index;
+  previouslyFocused = document.activeElement;
+
+  document.getElementById("env-inner-label").textContent = roomTitles[index];
+  document.getElementById("letter-eyebrow").textContent = "Chapter IV · Somewhere in our future";
+  document.getElementById("letter-title").textContent = roomTitles[index];
+  letterContent.textContent = roomNotes[index];
+
+  document.getElementById("envelope-hint").textContent = "A corner of our future home";
+  document.getElementById("envelope-instruction").textContent = "Click the envelope to open it ♡";
+
+  overlay.classList.add("active");
+  document.body.style.overflow = "hidden";
+  envelope.focus({ preventScroll: true });
+}
+
+/* Polaroid Memory */
+function openPolaroidMemory(index) {
+  if (index < 0 || index >= polaroidMemories.length) return;
+  resetOverlayViews();
+  currentMode = "polaroid";
+  activeIndex = index;
+  previouslyFocused = document.activeElement;
+
+  const item = polaroidMemories[index];
+  document.getElementById("env-inner-label").textContent = item.title;
+  document.getElementById("envelope-hint").textContent = "Polaroid Memory · " + item.title;
+  document.getElementById("envelope-instruction").textContent = "Click the envelope to reveal the photo ♡";
+
+  loadSmartImage(document.getElementById("polaroid-img"), item.photo);
+  document.getElementById("polaroid-caption").textContent = item.title;
+  document.getElementById("polaroid-tap-hint").textContent = "Click the photo to read its letter ♡";
+
+  overlay.classList.add("active");
+  document.body.style.overflow = "hidden";
+  envelope.focus({ preventScroll: true });
+}
+
+function revealPolaroidLetter() {
+  const item = polaroidMemories[activeIndex];
+  document.getElementById("letter-eyebrow").textContent = "The letter written for this memory";
+  document.getElementById("letter-title").textContent = item.title;
+
+  letterContent.classList.add("hidden");
+  letterImageWrap.classList.remove("hidden");
+  paginationControls.classList.add("hidden");
+
+  loadSmartImage(letterImage, item.letter);
+  letterPaper.classList.add("visible");
+  document.getElementById("polaroid-tap-hint").textContent = "Scroll down to read the letter ↓";
+
+  setTimeout(() => {
+    letterPaper.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }, 100);
+}
+
+/* Secret Letters */
+function openSecretLetter(index) {
+  if (index < 0 || index >= secretLetters.length) return;
+  resetOverlayViews();
+  currentMode = "secret";
+  activeIndex = index;
+  activeSecretPage = 0;
+  previouslyFocused = document.activeElement;
+
+  const item = secretLetters[index];
+  document.getElementById("env-inner-label").textContent = item.title;
+  document.getElementById("envelope-hint").textContent = "Secret Letter · " + item.title;
+  document.getElementById("envelope-instruction").textContent = "Click the envelope to unseal this letter ♡";
+
+  overlay.classList.add("active");
+  document.body.style.overflow = "hidden";
+  envelope.focus({ preventScroll: true });
+}
+
+function renderSecretLetterPage() {
+  const item = secretLetters[activeIndex];
+  document.getElementById("letter-eyebrow").textContent = "The letters you couldn't keep to yourself";
+  document.getElementById("letter-title").textContent = item.title;
+
+  letterContent.classList.add("hidden");
+  letterImageWrap.classList.remove("hidden");
+
+  loadSmartImage(letterImage, item.pages[activeSecretPage]);
+
+  if (item.pages.length > 1) {
+    paginationControls.classList.remove("hidden");
+    document.getElementById("page-indicator").textContent = `Page ${activeSecretPage + 1} of ${item.pages.length}`;
+    document.getElementById("prev-page-btn").disabled = activeSecretPage === 0;
+    document.getElementById("next-page-btn").disabled = activeSecretPage === item.pages.length - 1;
+  } else {
+    paginationControls.classList.add("hidden");
+  }
+}
+
+function changeSecretPage(delta) {
+  const item = secretLetters[activeIndex];
+  const next = activeSecretPage + delta;
+  if (next < 0 || next >= item.pages.length) return;
+  activeSecretPage = next;
+  renderSecretLetterPage();
+}
+
+/* Envelope opening */
+function openEnvelope() {
+  if (envelope.classList.contains("opening")) return;
+  envelope.classList.add("opening");
+  document.getElementById("envelope-close").classList.add("hidden");
+
+  if (currentMode === "polaroid") {
+    document.getElementById("envelope-hint").textContent = "A memory frozen in time";
+    document.getElementById("envelope-instruction").textContent = "Now click on the photo to read the letter for it…";
+    envelopeTimer = setTimeout(() => {
+      polaroidBox.classList.add("visible");
+      setTimeout(() => { polaroidBox.scrollIntoView({ behavior: "smooth", block: "nearest" }); }, 80);
+    }, 1050);
+  } else if (currentMode === "secret") {
+    document.getElementById("envelope-hint").textContent = "Kept safe in our world";
+    document.getElementById("envelope-instruction").textContent = "Every page, right here for you…";
+    renderSecretLetterPage();
+    envelopeTimer = setTimeout(() => {
+      letterPaper.classList.add("visible");
+      setTimeout(() => { letterPaper.scrollIntoView({ behavior: "smooth", block: "nearest" }); }, 80);
+    }, 1050);
+  } else {
+    document.getElementById("envelope-hint").textContent = "A message from my heart";
+    document.getElementById("envelope-instruction").textContent = "Just a little something I wanted you to know…";
+    envelopeTimer = setTimeout(() => {
+      letterPaper.classList.add("visible");
+      setTimeout(() => { letterPaper.scrollIntoView({ behavior: "smooth", block: "nearest" }); }, 80);
+    }, 1050);
+  }
+}
+
+function closeEnvelope() {
+  clearTimeout(envelopeTimer);
+  overlay.classList.remove("active");
+  envelope.classList.remove("opening");
+  letterPaper.classList.remove("visible");
+  polaroidBox.classList.remove("visible");
+  document.body.style.overflow = "";
+  if (previouslyFocused && previouslyFocused.focus) {
+    previouslyFocused.focus({ preventScroll: true });
+  }
+}
+
+envelope.addEventListener("keydown", event => {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    openEnvelope();
+  }
+});
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape" && overlay.classList.contains("active")) {
+    closeEnvelope();
+  }
+});
+
+/* TWINKLING STARS */
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+let stars = [];
+let canvasWidth = 0;
+let canvasHeight = 0;
+let starFrame = 0;
+
+function resizeStars() {
+  const ratio = Math.min(window.devicePixelRatio || 1, 2);
+  canvasWidth = window.innerWidth;
+  canvasHeight = window.innerHeight;
+  canvas.width = canvasWidth * ratio;
+  canvas.height = canvasHeight * ratio;
+  canvas.style.width = canvasWidth + "px";
+  canvas.style.height = canvasHeight + "px";
+  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+  const count = Math.min(150, Math.floor(canvasWidth / 8));
+  stars = Array.from({ length: count }, () => ({
+    x: Math.random() * canvasWidth,
+    y: Math.random() * canvasHeight,
+    radius: Math.random() * 1.5 + 0.3,
+    phase: Math.random() * Math.PI * 2,
+    speed: Math.random() * 0.025 + 0.005
+  }));
+}
+
+function drawStars() {
+  ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+  for (const star of stars) {
+    const alpha = 0.25 + 0.65 * ((Math.sin(star.phase) + 1) / 2);
+    ctx.beginPath();
+    ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255, 238, 207, ${alpha})`;
+    ctx.fill();
+    star.phase += star.speed;
+  }
+  if (!document.hidden) {
+    starFrame = requestAnimationFrame(drawStars);
+  }
+}
+
+window.addEventListener("resize", resizeStars);
+resizeStars();
+drawStars();
+</script>
+
+</body>
+</html>
